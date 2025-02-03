@@ -29,7 +29,7 @@ const loadPera = () => {
     let random_Pera = Math.floor(Math.random() * article.length);
    type_content.innerHTML = "";
     article[random_Pera].split('').forEach(element => {
-        let realData = <span>${element}</span>;
+        let realData = `<span>${element}</span>`;
         type_content.innerHTML += realData;
     });
 
@@ -82,8 +82,8 @@ input.addEventListener('input', (e) => {
             element.classList.remove('active');
         })
         char[letterIndex].classList.add('active');
-        error.innerText = Mistakes : ${mistakes};
-        cpm.innerText = CPM : ${letterIndex - mistakes};
+        error.innerText = `Mistakes : ${mistakes}`;
+        cpm.innerText = `CPM : ${letterIndex - mistakes}`;
     } else {
         clearInterval(time);
         input.value = "";
@@ -94,11 +94,24 @@ input.addEventListener('input', (e) => {
 const timeSetup = () =>{
     if(timeleft > 0){
         timeleft--;
-        t_left.innerText = Time-Left : ${timeleft}S;
+        t_left.innerText = `Time-Left : ${timeleft}S`;
         let wpmTab = Math.round((letterIndex - mistakes) / 5 / (maxTime - timeleft) * 60);
-        wpm.innerText = WPM : ${wpmTab};
+        wpm.innerText = `WPM : ${wpmTab}`;
     }else{
         clearInterval(time);
         input.value = "";
     }
 };
+
+
+resetBtn.addEventListener('click', ()=>{
+    loadPera();
+    clearInterval(time);
+    wpm.innerText = `WPM : `;
+    error.innerText = `Mistakes : `;
+    cpm.innerText = `CPM :`;
+    timeleft = maxTime;
+    t_left.innerText = `Time-Left : ${maxTime}S`;
+    input.value = "";
+    letterIndex = mistakes = isTyping = 0;
+})
