@@ -4,86 +4,37 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Typing App (SaaS)</title>
+    <title>typing app</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   </head>
   <body>
-    <div class="auth">
-      <input type="email" id="email" placeholder="Email" />
-      <input type="password" id="password" placeholder="Password" />
-      <button onclick="signUp()">Sign Up</button>
-      <button onclick="login()">Login</button>
-      <button onclick="logout()">Logout</button>
-    </div>
-    
-    <div class="box" id="typingTest" style="display: none;">
+    <div class="box">
       <div class="top_part">
         <div class="title_part">
-          <h2>Typing Test</h2>
+          <h2>Typing Test....</h2>
+          <div class="sound">
+            <span>Key Sound ON/OFF</span>
+            <input type="checkbox" name="" id="" />
+          </div>
         </div>
         <hr />
         <div class="type_content">
           <input type="text" id="typeValue" />
+          <p>
+    
+          </p>
         </div>
       </div>
       <div class="bottom_part">
-        <p class="wpm">WPM: <span id="wpm">0</span></p>
-        <p class="error">Mistakes: <span id="mistakes">0</span></p>
-        <p class="time">Time: <span id="time">0</span>s</p>
-        <button onclick="saveScore()">Save Score</button>
+        <p class="t-left">Time-Left : 0</p>
+        <p class="error">Mistakes : 0</p>
+        <p class="wpm">WPM : 0</p>
+        <p class="cpm">CPM : 0</p>
+        <button>Try Again</button>
       </div>
     </div>
-    
-    <script>
-      const supabaseUrl = "https://aobinhowzrinlqbjelff.supabase.co";
-      const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvYmluaG93enJpbmxxYmplbGZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgyMTE1ODQsImV4cCI6MjA1Mzc4NzU4NH0.yKP-4ymI0AlbWpjDLoc9n0eRuhLnnS6kn8JcHxUfxT0";
-      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-      async function signUp() {
-        let email = document.getElementById("email").value;
-        let password = document.getElementById("password").value;
-        let { user, error } = await supabase.auth.signUp({ email, password });
-        if (error) alert(error.message);
-        else alert("Sign Up Successful!");
-      }
-
-      async function login() {
-        let email = document.getElementById("email").value;
-        let password = document.getElementById("password").value;
-        let { user, error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) alert(error.message);
-        else {
-          alert("Login Successful!");
-          document.getElementById("typingTest").style.display = "block";
-        }
-      }
-
-      async function logout() {
-        await supabase.auth.signOut();
-        alert("Logged out!");
-        document.getElementById("typingTest").style.display = "none";
-      }
-
-      async function saveScore() {
-        let user = await supabase.auth.getUser();
-        if (!user) {
-          alert("You need to log in first!");
-          return;
-        }
-
-        let wpm = document.getElementById("wpm").innerText;
-        let mistakes = document.getElementById("mistakes").innerText;
-        let time_taken = document.getElementById("time").innerText;
-
-        let { error } = await supabase.from("typing_scores").insert([
-          { user_id: user.id, wpm, mistakes, time_taken }
-        ]);
-
-        if (error) alert(error.message);
-        else alert("Score Saved!");
-      }
-    </script>
+    <script src="pera.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
 
